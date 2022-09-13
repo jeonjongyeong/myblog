@@ -12,6 +12,8 @@ function App() {
 
   let [modal, setModal] = useState(false);
 
+  let [title, setTitle] = useState(0);
+
   function 글제목변경() {
     let copy = [...글제목];
     copy[0] = "여자 코트 추천";
@@ -54,7 +56,14 @@ function App() {
       {글제목.map(function (a, i) {
         return (
           <div className="list" key={i}>
-            <h4 onClick={modalDetail}>{글제목[i]}</h4>
+            <h4
+              onClick={() => {
+                setModal(true);
+                setTitle(i);
+              }}
+            >
+              {글제목[i]}
+            </h4>
             <p
               onClick={() => {
                 let copy = [...따봉];
@@ -69,17 +78,18 @@ function App() {
         );
       })}
 
-      {modal === true ? <Modal /> : null}
+      {modal === true ? <Modal title={title} 글제목={글제목} /> : null}
     </div>
   );
 }
 
-function Modal() {
+function Modal(props) {
   return (
-    <div className="modal">
-      <h4>제목</h4>
+    <div className="modal" style={{ background: props.color }}>
+      <h4>{props.글제목[props.title]}</h4>
       <p>날짜</p>
       <p>상세내용</p>
+      <button onClick={props.글수정}>글수정</button>
     </div>
   );
 }
