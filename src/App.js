@@ -16,6 +16,13 @@ function App() {
 
   let [입력값, set입력값] = useState("");
 
+  let [date, setDate] = useState(["2022.09.11", "2022.09.12", "2022.09.13"]);
+
+  let year = new Date().getFullYear();
+  let month = new Date().getMonth() + 1;
+  let day = new Date().getDate();
+  let getDate = `${year}.${month}.${day}`;
+
   function 글제목변경() {
     let copy = [...글제목];
     copy[0] = "여자 코트 추천";
@@ -59,7 +66,7 @@ function App() {
               </span>
             </h4>
 
-            <p>9월 10일 발행</p>
+            <p>{date[i]}</p>
             <button
               onClick={() => {
                 let copy = [...글제목];
@@ -83,6 +90,14 @@ function App() {
           let copy = [...글제목];
           copy.push(입력값);
           입력값 === "" ? alert("입력해주세요") : set글제목(copy);
+
+          let likeCopy = [...따봉];
+          likeCopy.push(0);
+          set따봉(likeCopy);
+
+          let dateCopy = [...date];
+          dateCopy.push(getDate);
+          setDate(dateCopy);
         }}
       >
         글생성
